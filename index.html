@@ -11,6 +11,7 @@
   </head>
   <body>
 	<script src="lol-picker.js"></script>
+  <script src="dark-mode.js"></script>
     <table id="names-and-checkboxes"><thead>
         <tr>
           <th>jméno</th>
@@ -26,5 +27,8 @@
       </table>
       <button onclick="generate_button()">vygeneruj rozdělení</button>
       <div id="generated-roles"></div>
+      <p>dark mode:
+        <input id="darkmode-checkbox" type="checkbox" onclick="toggle_dark_mode()" checked>
+      </p>
   </body>
 </html>
