@@ -66,14 +66,38 @@ function save_all() {
     for (var n = 1; n <= NUMBER_OF_PLAYERS; n++) {
         const id = `player${n}-name`
         input_element = document.querySelector(`#${id}`)
-        console.log(input_element)
         var textc = input_element.value
-        console.log(textc)
         if (textc.length > 0) {
             set_cookie(id, textc, EXPDAYS)
         } else {
             delete_cookie(id)
         }
+    }
+}
+
+/* uncheck player role checkobex and empty names */
+function reset_all() {
+
+    /* uncheck relevant checkboxes */
+    checkboxes = document.querySelectorAll("input[type='checkbox']")
+    for (var i = 0; i < checkboxes.length; i++) {
+
+        const checkbox = checkboxes[i]
+        const id = checkbox.id
+
+        /* skip irrelevant checkboxes */
+        if (! id.includes("player")) {
+            continue
+        }
+
+        checkbox.checked = false
+    }
+
+    /* save values of player name input fields */
+    for (var n = 1; n <= NUMBER_OF_PLAYERS; n++) {
+        const id = `player${n}-name`
+        input_element = document.querySelector(`#${id}`)
+        input_element.value = ""
     }
 }
 
