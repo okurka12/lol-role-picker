@@ -1,11 +1,21 @@
+
+/* number of days before the dark mode cookie expires */
+const DARK_MODE_COOKIE_DAYS = 14
+
+/**
+ * run this function only once upon loading the page
+ */
 function dark_mode_first_time() {
 
-    const cookie = document.cookie
-    if (cookie == "darkmode=0") {
+    /**
+     * By default, darkmode is enabled and the checkbox checked. If the user
+     * was using light mode the last time, uncheck the darkmode checkbox.
+     */
+    const darkmodecookie = get_cookie("darkmode")
+    if (darkmodecookie == "0") {
         const darkmode_checkbox = document.querySelector("#darkmode-checkbox")
         darkmode_checkbox.checked = false
     }
-    /* else: it is checked by default, do nothing */
 
     toggle_dark_mode()
 
@@ -27,7 +37,8 @@ function toggle_dark_mode() {
         buttoncol = "#222222"
         // bordercol = "gray"
 
-        document.cookie = "darkmode=1"
+        set_cookie("darkmode", "1", DARK_MODE_COOKIE_DAYS)
+
     } else {
         bgcol = "white"
         textcol = "black"
@@ -35,7 +46,7 @@ function toggle_dark_mode() {
         buttoncol = "lightgray"
         // bordercol = "black"
 
-        document.cookie = "darkmode=0"
+        set_cookie("darkmode", "0", DARK_MODE_COOKIE_DAYS)
     }
 
     const body = document.querySelector("body")
