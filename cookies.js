@@ -4,6 +4,8 @@
  * Both name and value are encoded, so it's safe to use characters
  * like '=' or ';'
  *
+ * @note sets a cookie with `path=/`
+ *
  * @param {string} cname cookie name
  * @param {string} cvalue cookie value
  * @param {number} exdays days before expiration
@@ -48,4 +50,13 @@ function get_cookie(cname) {
 
     /* cookie was not found */
     return ""
+}
+
+/**
+ * deletes a coookue
+ * @param {string} cname cookie name
+ */
+function delete_cookie(cname) {
+    document.cookie = encodeURIComponent(cname) +
+                    "=; expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/"
 }
