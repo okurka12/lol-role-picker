@@ -16,6 +16,9 @@ const ROLES = [
 
 UNDECIDED_ROLE = "🤷‍♀️"
 
+/* number of days before stored values expire */
+EXPDAYS = 14
+
 /* get a random item from an array */
 function get_random(list) {
     if (list.length === 0) {
@@ -35,28 +38,77 @@ function shuffle_array(array) {
     }
 }
 
+/**
+ * save all into cookies
+ */
+function save_all() {
+
+    /* save states of relevant checkboxes */
+    checkboxes = document.querySelectorAll("input[type='checkbox']")
+    for (var i = 0; i < checkboxes.length; i++) {
+
+        const checkbox = checkboxes[i]
+        const id = checkbox.id
+
+        /* skip irrelevant checkboxes */
+        if (! id.includes("player")) {
+            continue
+        }
+
+        if (checkbox.checked) {
+            set_cookie(id, "1", EXPDAYS)
+        } else {
+            delete_cookie(id)
+        }
+    }
+
+    /* save values of player name input fields */
+    for (var n = 1; n <= NUMBER_OF_PLAYERS; n++) {
+        const id = `player${n}-name`
+        input_element = document.querySelector(`#${id}`)
+        console.log(input_element)
+        var textc = input_element.value
+        console.log(textc)
+        if (textc.length > 0) {
+            set_cookie(id, textc, EXPDAYS)
+        } else {
+            delete_cookie(id)
+        }
+    }
+}
+
+
 function fill_table() {
     const table_body = document.querySelector("#names-and-checkboxes tbody")
 
     for (let i = 1; i <= NUMBER_OF_PLAYERS; i++) {
         const row = document.createElement("tr")
 
-        /* player name */
+        /* player name text input fields */
+        const element_id = `player${i}-name`
         const table_elem = document.createElement("td")
         const player_name = document.createElement("input")
-        player_name.setAttribute("id", `player${i}-name`)
+        player_name.setAttribute("id", element_id)
         player_name.setAttribute("tabindex", i)
+        player_name.value = get_cookie(element_id)
+        player_name.addEventListener("keypress", save_all)
+        player_name.addEventListener("keydown", save_all)
         table_elem.appendChild(player_name)
         row.appendChild(table_elem)
 
-        /* checkboxes */
+        /* player role checkboxes */
         for (let j = 0; j < NUMBER_OF_ROLES; j++) {
 
             const role = ROLES[j]
+            const element_id = `player${i}-${role}`
             const table_elem = document.createElement("td")
             const check_box = document.createElement("input")
-            check_box.setAttribute("id", `player${i}-${role}`)
+            check_box.setAttribute("id", element_id)
             check_box.setAttribute("type", "checkbox")
+            check_box.setAttribute("onclick", "save_all()")
+            if (get_cookie(element_id) == "1") {
+                check_box.checked = true
+            }
             table_elem.appendChild(check_box)
             row.appendChild(table_elem)
         }
