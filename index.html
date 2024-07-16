@@ -26,12 +26,17 @@
         <!-- rows will be inserted here -->
       </tbody>
       </table>
-      <button onclick="generate_button()">✅ vygeneruj rozdělení ✅</button>
+      <button onclick="generate_button()">vygeneruj rozdělení ✅</button>
       <div id="generated-roles"></div>
-      <p>--------------------</p>
-      <p>tmavý režim:
-        <input id="darkmode-checkbox" type="checkbox" onclick="toggle_dark_mode()" checked>
-      </p>
-      <button onclick="reset_all()">❌ smazat vše ❌</button>
+
+      <div id="settings">
+
+        <h1>Nastavení:</h1>
+        <p>tmavý režim:
+          <input id="darkmode-checkbox" type="checkbox" onclick="toggle_dark_mode()" checked>
+        </p>
+        <button onclick="reset_all()">smazat vše ❌</button>
+
+      </div> <!-- div id settings -->
   </body>
 </html>

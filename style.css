@@ -2,3 +2,9 @@ th {
    width: 2.5em;
    text-align: left;
 }
+
+#settings {
+   position: fixed;
+   bottom: 0;
+   padding-bottom: 2em;
+}
