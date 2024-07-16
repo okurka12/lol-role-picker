@@ -8,3 +8,7 @@ th {
    bottom: 0;
    padding-bottom: 2em;
 }
+
+table#names-and-checkboxes {
+   margin-bottom: 1em;
+}
