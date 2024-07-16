@@ -12,3 +12,7 @@ th {
 table#names-and-checkboxes {
    margin-bottom: 1em;
 }
+
+button {
+   border-radius: 2px;
+}
