@@ -213,9 +213,16 @@ function generate_button() {
 
     for (let player_name in player_roles) {
         const text = `${player_name}: ${player_roles[player_name]}`
-        const text_elem = document.createElement("p")
-        text_elem.textContent = text
-        roles_elem.appendChild(text_elem)
+        const row = document.createElement("p")
+        const name_element = document.createElement("b")
+        const picked_role_element = document.createTextNode(
+            player_roles[player_name]
+        )
+        name_element.textContent = player_name + ": "
+        row.appendChild(name_element)
+        row.appendChild(picked_role_element)
+
+        roles_elem.appendChild(row)
     }
 
 }
