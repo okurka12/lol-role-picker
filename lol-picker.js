@@ -141,6 +141,9 @@ function fill_table() {
 
         table_body.appendChild(row)
     }
+
+    /* remvoe hte javascript notice */
+    document.getElementById("remove-this").remove()
 }
 
 function generate_button() {
