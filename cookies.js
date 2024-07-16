@@ -48,7 +48,6 @@ function get_cookie(cname) {
         cnn = encodeURIComponent(cname.trim())
         cn = c.split("=")[0].trim()
 
-        console.log(`comparing ${cn} and ${cnn}`)
         if (cn == cnn) {
             /* cookie was found */
             return decodeURIComponent(c.split("=")[1])
