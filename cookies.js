@@ -1,10 +1,17 @@
 /**
+ * get the URI
+ * for http://localhost:8000/ it will be '/'
+ * for https://vitapavlik.cz/lol-role-picker/ it will be '/lol-role-picker/'
+ */
+PATH = location.pathname
+
+/**
  * Sets a cookie. Name cannot begin or end with whitespace, but can contain
  * any characters. Cookie value has no limitations.
  * Both name and value are encoded, so it's safe to use characters
  * like '=' or ';'
  *
- * @note sets a cookie with `path=/`
+ * @note sets a cookie with `path` equal to current URI
  *
  * @param {string} cname cookie name
  * @param {string} cvalue cookie value
@@ -19,7 +26,7 @@ function set_cookie(cname, cvalue, exdays) {
 
     let expires = "expires=" + date.toUTCString()
 
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/"
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=" + PATH
 }
 
 /**
@@ -39,10 +46,10 @@ function get_cookie(cname) {
         c = splitted[i]
 
         cnn = encodeURIComponent(cname.trim())
-        cn = decodeURIComponent(c.split("=")[0]).trim()
+        cn = c.split("=")[0].trim()
 
+        console.log(`comparing ${cn} and ${cnn}`)
         if (cn == cnn) {
-
             /* cookie was found */
             return decodeURIComponent(c.split("=")[1])
         }
@@ -58,5 +65,5 @@ function get_cookie(cname) {
  */
 function delete_cookie(cname) {
     document.cookie = encodeURIComponent(cname) +
-                    "=; expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/"
+                    "=; expires=Thu, 01 Jan 1970 00:00:00 GMT;path=" + PATH
 }
