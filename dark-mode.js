@@ -27,48 +27,61 @@ function toggle_dark_mode() {
     var bgcol = ""
     var textcol = ""
     var inputcol = ""
-    var buttoncol = ""
-    // var bordercol = ""
+    var btncol = ""
+    var btncolhov = ""  // hover
+    var bordercol = ""
 
-    if (checked) {
+    if (checked) {  // darkmode
+
         bgcol = "black"
         textcol = "white"
         inputcol = "#222222"
-        buttoncol = "#222222"
-        // bordercol = "gray"
+        btncol = "#222222"
+        btncolhov = "#333333"
+        bordercol = "gray"
 
         set_cookie("darkmode", "1", DARK_MODE_COOKIE_DAYS)
 
-    } else {
+    } else {  // lightmode
+
         bgcol = "white"
         textcol = "black"
         inputcol = "white"
-        buttoncol = "lightgray"
-        // bordercol = "black"
+        btncol = "lightgray"  // same as #D3D3D3
+        btncolhov = "#C3C3C3"
+        bordercol = "black"
 
         set_cookie("darkmode", "0", DARK_MODE_COOKIE_DAYS)
     }
 
+    /* body background color and text color */
     const body = document.querySelector("body")
     body.style.backgroundColor = bgcol
     body.style.color = textcol
 
+    /* text input fields */
     const inputs = document.querySelectorAll("input")
     inputs.forEach(input => {
         input.style.backgroundColor = inputcol
         input.style.color = textcol
-        // input.style.borderColor = bordercol
+        input.style.border = "1px solid " + bordercol
     });
 
+    /* buttons */
     const buttons = document.querySelectorAll("button")
     buttons.forEach(button => {
         button.style.color = textcol
-        button.style.backgroundColor = buttoncol
+        button.style.backgroundColor = btncol
+        button.style.border = "1px solid " + bordercol
+        button.addEventListener("mouseenter", function(event) {
+            button.style.backgroundColor = btncolhov
+        })
+        button.addEventListener("mouseleave", function(event) {
+            button.style.backgroundColor = btncol
+        })
     });
 }
 
-function enable_dark_mode() {
-}
 
 
 
