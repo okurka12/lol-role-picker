@@ -99,6 +99,8 @@ function reset_all() {
         input_element = document.querySelector(`#${id}`)
         input_element.value = ""
     }
+
+    save_all()
 }
 
 
