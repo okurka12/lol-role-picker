@@ -14,10 +14,12 @@ const ROLES = [
     "top",
 ]
 
-UNDECIDED_ROLE = "🤷‍♀️"
+const UNDECIDED_ROLE = "🤷‍♀️"
 
 /* number of days before stored values expire */
-EXPDAYS = 14
+const EXPDAYS = 14
+
+const WARN_TEXT = "upozornění: víc hráčů než je vybráno rolí"
 
 /* get a random item from an array */
 function get_random(list) {
@@ -70,6 +72,27 @@ function shuffle_adjacent(names, roles) {
             }
         }
 
+    }
+}
+
+/**
+ * warn if there are more players that their selected roles
+ */
+function update_warning(names, roles) {
+    let selected = Array()
+    Object.keys(roles).forEach(n => {
+
+        roles[n].forEach(role => {
+            if (! selected.includes(role)) {
+                selected.push(role)
+            }
+        })
+    });
+
+    if (names.length > selected.length) {
+        document.getElementById("warning-text").innerHTML = WARN_TEXT
+    } else {
+        document.getElementById("warning-text").innerHTML = ""
     }
 }
 
@@ -218,12 +241,13 @@ function generate_button() {
 
     })
 
+    update_warning(player_names, player_roles)
+
     /* pick roles first for players who have the least roles selected */
     player_names.sort(
         (a, b) => player_roles[a].length - player_roles[b].length
     )
     shuffle_adjacent(player_names, player_roles)
-    console.log(`picking first for ${player_names[0]}`)
 
     /**
      * in this loop, dictionary mutates
