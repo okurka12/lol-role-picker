@@ -183,7 +183,11 @@ function generate_button() {
 
     })
 
-    shuffle_array(player_names)
+    /* pick roles first for players who have the least roles selected */
+    player_names.sort(
+        (a, b) => player_roles[a].length - player_roles[b].length
+    )
+    console.log(`picking first for ${player_names[0]}`)
 
     /**
      * in this loop, dictionary mutates
