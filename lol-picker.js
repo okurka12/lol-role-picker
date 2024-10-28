@@ -29,12 +29,47 @@ function get_random(list) {
 
 /* Randomize array in-place using Durstenfeld shuffle algorithm */
 /* https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array */
-function shuffle_array(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
+// function shuffle_array(array) {
+//     for (var i = array.length - 1; i > 0; i--) {
+//         var j = Math.floor(Math.random() * (i + 1));
+//         var temp = array[i];
+//         array[i] = array[j];
+//         array[j] = temp;
+//     }
+// }
+
+function random_bool() {
+    return Math.random() > 0.5
+}
+
+function swap(arr, i, j) {
+    let tmp = arr[i]
+    arr[i] = arr[j]
+    arr[j] = tmp
+}
+
+/**
+ * names: list of names
+ * roles: dictionary where each of the name in names has a list of roles
+ * this function expects `names` to be sorted by how many roles they have
+ * and if two or more players have the same amount of roles selected, it
+ * shuffles those
+ */
+function shuffle_adjacent(names, roles) {
+    if (names.length == 1) {
+        return
+    }
+
+    for (let _ = 0; _ < names.length - 1; _++) {
+
+        for (let i = 0; i < names.length - 1; i++) {
+            let n1 = roles[names[i]].length
+            let n2 = roles[names[i + 1]].length
+            if (n1 == n2 && random_bool()) {
+                swap(names, i, i + 1)
+            }
+        }
+
     }
 }
 
@@ -187,6 +222,7 @@ function generate_button() {
     player_names.sort(
         (a, b) => player_roles[a].length - player_roles[b].length
     )
+    shuffle_adjacent(player_names, player_roles)
     console.log(`picking first for ${player_names[0]}`)
 
     /**
